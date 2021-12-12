@@ -169,7 +169,7 @@ where
     }
 }
 
-/// Get any intersection point between line segments.
+/// Get any intersection point between lines.
 /// Note that this function always detects endpoint-to-endpoint intersections.
 /// Most of this is from <https://stackoverflow.com/a/565282>
 #[allow(clippy::many_single_char_names)]
@@ -256,14 +256,7 @@ where
         // the lines are not parallel
         let t = cross_z(&q_minus_p, &div(&s, r_cross_s));
         let u = cross_z(&q_minus_p, &div(&r, r_cross_s));
-
-        // If r × s ≠ 0 and 0 ≤ t ≤ 1 and 0 ≤ u ≤ 1,
-        // the two line segments meet at the point p + t r = q + u s.
-        if T::zero() <= t && t <= T::one() && T::zero() <= u && u <= T::one() {
-            Some(Intersection::Intersection(scale_to_coordinate(&p, &r, t)))
-        } else {
-            None
-        }
+        Some(Intersection::Intersection(scale_to_coordinate(&p, &r, t)))
     }
 }
 
